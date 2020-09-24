@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dexinstaller
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: 
+  name: dexinstaller
+rules:
+- apiGroups: [""]
+  resources: ["secrets","services"]
+  verbs: ["get", "watch", "list"]
+--- 
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: dexinstallerrolebinding
+subjects:
+- kind: ServiceAccount
+  name: dexinstaller 
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: dexinstaller
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dexinstaller
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+      - name: dexinstaller
+        image: eshanks16/dexinstaller:v1
+        volumeMounts:
+        - name: ssh-key-volume
+          mountPath: "/etc/ssh-key"
+        args: ["./script.sh", "git@github.com:eshanks16/tkgtest.git", "Values.yaml","master","variable2"]
+      serviceAccountName: dexinstaller
+      restartPolicy: Never
+      volumes:
+        - name: ssh-key-volume
+          secret:
+            secretName: sshkey
+            defaultMode: 256

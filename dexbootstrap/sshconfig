@@ -1,0 +1,4 @@
+Host p-gp2-gitlab-1.imovetv.com 
+    StrictHostKeyChecking no
+Host github.com 
+    StrictHostKeyChecking no
