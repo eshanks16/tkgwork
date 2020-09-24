@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argobootstrapper
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: 
+  name: argobootstraprole
+rules:
+- apiGroups: ["", "cluster.x-k8s.io"]
+  resources: ["pods","clusters","secrets"]
+  verbs: ["get", "watch", "list"]
+--- 
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: argobootstrapbinding
+subjects:
+- kind: ServiceAccount
+  name: argobootstrapper # Name is case sensitive
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: argobootstraprole
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: argobootstrap
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+      - name: argobootstrap
+        image: eshanks16/argobootstrap:v2
+        args: ["./argobootstrap.sh", "east2",
+        "aa88afcca9b434103bb1bb8107f4a137-68277187.us-east-2.elb.amazonaws.com"]
+        volumeMounts:
+        - name: argosecret
+          mountPath: "/etc/argosecrets"
+          readOnly: true
+        
+      restartPolicy: Never
+      serviceAccountName: argobootstrapper
+      volumes:
+        - name: argosecret
+          secret:
+            secretName: argosecret
