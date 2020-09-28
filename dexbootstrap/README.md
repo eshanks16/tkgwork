@@ -14,12 +14,11 @@ Instructions:
 
 `Repo` – The git url for the repo that you’d like to update
 
-`File` – The filename of the file that you’d like to update
-
 `Branch` – The branch within the repo that you want to update
     
-`Variable` – which variable within the file you’d like to update. This is in
-    yq format so you can edit “variable2” or “variable3.entry2” etc.
+`cluster_name` - new cluster to be created
 
--   Update the sshconfig to include any hosts where you'll pull form git. This
+`lb_cert` - the AWS arn for the certificate
+
+-   Update the sshconfig to include any hosts where you'll pull from git. This
     disables host checking.
