@@ -36,11 +36,16 @@ spec:
     spec:
       containers:
       - name: dexinstaller
-        image: eshanks16/dexinstaller:v1
+        image: eshanks16/dexinstaller:v5
         volumeMounts:
         - name: ssh-key-volume
           mountPath: "/etc/ssh-key"
-        args: ["./script.sh", "git@github.com:eshanks16/tkgtest.git", "Values.yaml","master","variable2"]
+        args: 
+        - "./script.sh" #Script name DO NOT CHANGE
+        - "git@github.com:eshanks16/tkgtest.git" #Git Repo
+        - "master" #Git Branch
+        - "east-2" #Clustername
+        - "arn:aws::acm:us-east-1:12345678:certificate/55dfd86-3098-asdfasdfasdf" #certificate
       serviceAccountName: dexinstaller
       restartPolicy: Never
       volumes:

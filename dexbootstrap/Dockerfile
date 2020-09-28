@@ -12,4 +12,4 @@ COPY sshconfig $HOME/.ssh/config
 
 ENTRYPOINT ["/bin/bash"]
 
-CMD ["./script.sh", "git@github.com:eshanks16/tkgtest.git", "Values.yaml", "master", "variable2"]
+CMD ["./script.sh", "git@github.com:eshanks16/tkgtest.git", "branchname", "cluster_name", "LB_CERT"]
