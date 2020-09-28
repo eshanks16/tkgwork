@@ -25,7 +25,7 @@ echo "The load balancer address is: $lbaddress"
 #yq w -i $file $parameter $lbaddress
 
 ####Additions
-if [ $(ls $cluster_name-tkg-mgmt.yaml) -eq 0 ]
+if [ $(ls $cluster_name-tkg-mgmt.yaml) ]
 then
     #File already exists - Update File
     echo "File exists - updating in place"

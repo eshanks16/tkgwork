@@ -1,0 +1,4 @@
+clustername: east-4
+repo: git@github.com:eshanks16/tkgtest.git
+branch: master
+certificate: arn:aws::acm:us-east-1:12345678:certificate/55dfd86-3098-asdfasdfasdf

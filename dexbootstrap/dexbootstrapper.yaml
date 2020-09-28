@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: dexinstaller
-        image: eshanks16/dexinstaller:v5
+        image: eshanks16/dexinstaller:v8
         volumeMounts:
         - name: ssh-key-volume
           mountPath: "/etc/ssh-key"
