@@ -1,0 +1,4 @@
+tmctoken: #OMITTED
+tmcendpoint: saleseng.tmc.cloud.vmware.com:443
+cluster_name: tmctest-attach
+group_name: theithollow-group
