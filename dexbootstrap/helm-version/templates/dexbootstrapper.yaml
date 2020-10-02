@@ -29,27 +29,29 @@ roleRef:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: dexbootstrap-{{ .Values.clustername }}
+  name: dexbootstrap-{{ .Values.cluster_name }}
 spec:
   ttlSecondsAfterFinished: 100
   template:
     spec:
       containers:
-      - name: dexinstaller-{{ .Values.clustername }}
-        image: eshanks16/dexinstaller:v9
+      - name: dexinstaller-{{ .Values.cluster_name }}
+        image: eshanks16/dexinstaller:v23
         volumeMounts:
         - name: ssh-key-volume
           mountPath: "/etc/ssh-key"
         args: 
         - "./script.sh" #Script name DO NOT CHANGE
-        - {{ .Values.repo }} #Git Repo
-        - {{ .Values.branch }} #Git Branch
-        - {{ .Values.clustername }} #Clustername
+        - {{ .Values.cluster_repo }} #Cluster Config Git Repo
+        - {{ .Values.cluster_branch }} #Git Config Git Branch 
+        - {{ .Values.cluster_name }} #Cluster name being created
+        - {{ .Values.dex_repo }} #Dex Git Repo
+        - {{ .Values.dex_branch }} #Dex Git Branch to Updat
         - {{ .Values.certificate }} #certificate
       serviceAccountName: dexinstaller
       restartPolicy: Never
       volumes:
         - name: ssh-key-volume
           secret:
-            secretName: sshkey
+            secretName: {{ .Values.secret_name }}
             defaultMode: 256

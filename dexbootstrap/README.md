@@ -8,15 +8,21 @@ Build and Push your new docker image and update the Kubernetes manifest to refer
 Instructions:
 -   You’ll want to build the container from the Dockerfile after updating your secret name (Mine was `vmw-mac`) replace my secret with the name of your secret.
 -   You can also update the CMD field in the Dockerfile to place default parameters if you’d like. This isn’t necessary if you pass them in at runtime through the k8s manifest
--   Update the Kubernetes manifest named dexinstaller.yaml with the correct ARGS
+-   Update the Kubernetes manifest (helm template) named dexbootstrapper.yaml with the correct ARGS
 
 `./script.sh` is the name of the script to be run when the container starts (DON’T Modify this)
 
-`Repo` – The git url for the repo that you’d like to update
+`cluster_repo` – The git url for the repository that stores the child cluster
+configs. This script now adds the DEX_CA value to a file in that repository.
 
-`Branch` – The branch within the repo that you want to update
+`cluster_branch` – The branch within the cluster_repo that you want to update
     
-`cluster_name` - new cluster to be created
+`cluster_name` - new cluster that will be created
+
+`dex_repo` - the git url for the repository needing the dex info for child
+clusters.
+
+`dex_branch` - the branch within the dex_repo that should be updated.
 
 `lb_cert` - the AWS arn for the certificate
 

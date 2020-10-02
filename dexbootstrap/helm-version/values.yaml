@@ -1,4 +1,8 @@
-clustername: east-4
-repo: git@github.com:eshanks16/tkgtest.git
-branch: master
-certificate: arn:aws::acm:us-east-1:12345678:certificate/55dfd86-3098-asdfasdfasdf
+cluster_name: east-10
+cluster_repo: git@github.com:eshanks16/tkgtest.git
+cluster_branch: master
+dex_repo: git@github.com:eshanks16/tkgtest2.git
+dex_branch: master
+certificate: "arn:aws::acm:us-east-1:123456789:certificate/
+55dfd86-3098-asdfasdfasdf"
+secret_name: sshkey
