@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: dexinstaller-{{ .Values.cluster_name }}
-        image: eshanks16/dexinstaller:v23
+        image: eshanks16/dexinstaller:v38
         volumeMounts:
         - name: ssh-key-volume
           mountPath: "/etc/ssh-key"
@@ -48,6 +48,27 @@ spec:
         - {{ .Values.dex_repo }} #Dex Git Repo
         - {{ .Values.dex_branch }} #Dex Git Branch to Updat
         - {{ .Values.certificate }} #certificate
+        - {{ .Values.AWS_REGION }} #AWS Region
+        - {{ .Values.CLUSTER_CIDR }} #The K8s Cluster CIDR
+        - {{ .Values.AWS_SSH_KEY_NAME }} #SSH Key for Auth
+        - {{ .Values.SECURITY_GROUP_MOVEIP }} #SecurityGroup
+        - {{ .Values.ENV_NAME }} #Environment Name
+        - {{ .Values.AWS_VPC_ID }} #VPC Identifier
+        - {{ .Values.CONTROL_PLANE_MACHINE_TYPE }} #Control Plane Family
+        - {{ .Values.MONITORING_NODE_MACHINE_TYPE }} #Monitoring Node Family
+        - {{ .Values.WORKER_NODE_MACHINE_TYPE }} #Worker Node Family
+        - "{{ .Values.CONTROL_PLANE_MACHINE_COUNT }}" #Control Plane Quantity
+        - "{{ .Values.WORKER_MACHINE_COUNT_COMPUTE}}" #Worker Machine Quantity
+        - "{{ .Values.WORKER_MACHINE_COUNT_MONITORING }}" #Monitoring Machine Quantity
+        - {{ .Values.AVAILABILITY_ZONE_1 }} #AZ1
+        - {{ .Values.AVAILABILITY_ZONE_2 }} #AZ2
+        - {{ .Values.AVAILABILITY_ZONE_3 }} #AZ3
+        - "{{ .Values.BASTION_HOST_ENABLED }}" #Using Bastion Host BOOLEAN
+        - {{ .Values.NODE_STARTUP_TIMEOUT }} #Node Timeout
+        - {{ .Values.COMPUTE_NODE_MACHINE_TYPE }} #Compute Node Family
+        - {{ .Values.NODE_MACHINE_TYPE }} #Node Machines
+        - {{ .Values.AWS_NODE_AZ }} #Node AZ
+
       serviceAccountName: dexinstaller
       restartPolicy: Never
       volumes:

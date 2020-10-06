@@ -1,4 +1,4 @@
-cluster_name: east-10
+cluster_name: hollow3
 cluster_repo: git@github.com:eshanks16/tkgtest.git
 cluster_branch: master
 dex_repo: git@github.com:eshanks16/tkgtest2.git
@@ -6,3 +6,64 @@ dex_branch: master
 certificate: "arn:aws::acm:us-east-1:123456789:certificate/
 55dfd86-3098-asdfasdfasdf"
 secret_name: sshkey
+### 
+AWS_REGION: us-east-1
+AWS_NODE_AZ: us-east-1a
+AVAILABILITY_ZONE_1: us-east-1a
+AVAILABILITY_ZONE_2: us-east-1b
+AVAILABILITY_ZONE_3: us-east-1d
+SECURITY_GROUP_MOVEIP: sg-0a79e766e50695599
+#AWS_PRIVATE_NODE_CIDR:
+#AWS_PUBLIC_NODE_CIDR:
+AWS_PUBLIC_SUBNET_ID: subnet-089386482231e4758
+AWS_PRIVATE_SUBNET_ID: subnet-0de72e6acf20008f5
+AWS_SSH_KEY_NAME: platform-tmc
+AWS_VPC_ID: vpc-0d4056e9ab9646021
+#AWS_VPC_CIDR:
+NODE_MACHINE_TYPE: t3.xlarge
+CLUSTER_CIDR: 10.96.0.0/11
+CONTROL_PLANE_MACHINE_TYPE: m5a.xlarge
+MONITORING_NODE_MACHINE_TYPE: m5a.xlarge
+WORKER_NODE_MACHINE_TYPE: m5a.xlarge
+COMPUTE_NODE_MACHINE_TYPE: m5a.xlarge
+BASTION_HOST_ENABLED: "false"
+cert-manager-timeout: 30m0s
+overridesFolder: /home/ubuntu/.tkg/overrides
+NODE_STARTUP_TIMEOUT: 10m
+CONTROL_PLANE_MACHINE_COUNT: 3
+ENV_NAME: Dev
+#Below count multiplies by 3 as this count spread across 3 avail zones
+WORKER_MACHINE_COUNT_COMPUTE: 2
+WORKER_MACHINE_COUNT_MONITORING: 1
+AWS_B64ENCODED_CREDENTIALS: "test"
+LB_CERT: "arn:aws:acm:us-east-1:219747179553:certificate/55d3fd86-3098-4710-ae28-10639183355c"
+DEX_CNAME: "d-ae1-test-dex.aws.imovetv.com"
+providers:
+  - name: cluster-api
+    url: /home/ubuntu/.tkg/providers/cluster-api/v0.3.6/core-components.yaml
+    type: CoreProvider
+  - name: aws
+    url: /home/ubuntu/.tkg/providers/infrastructure-aws/v0.5.4/infrastructure-components.yaml
+    type: InfrastructureProvider
+  - name: vsphere
+    url: /home/ubuntu/.tkg/providers/infrastructure-vsphere/v0.6.6/infrastructure-components.yaml
+    type: InfrastructureProvider
+  - name: tkg-service-vsphere
+    url: /home/ubuntu/.tkg/providers/infrastructure-tkg-service-vsphere/v1.0.0/unused.yaml
+    type: InfrastructureProvider
+  - name: kubeadm
+    url: /home/ubuntu/.tkg/providers/bootstrap-kubeadm/v0.3.6/bootstrap-components.yaml
+    type: BootstrapProvider
+  - name: kubeadm
+    url: /home/ubuntu/.tkg/providers/control-plane-kubeadm/v0.3.6/control-plane-components.yaml
+    type: ControlPlaneProvider
+images:
+    all:
+        repository: registry.tkg.vmware.run/cluster-api
+    cert-manager:
+        repository: registry.tkg.vmware.run/cert-manager
+        tag: v0.11.0_vmware.1
+release:
+    version: v1.1.3
+tkg:
+    regions:
