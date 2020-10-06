@@ -12,19 +12,9 @@ Instructions:
 
 `./script.sh` is the name of the script to be run when the container starts (DON’T Modify this)
 
-`cluster_repo` – The git url for the repository that stores the child cluster
-configs. This script now adds the DEX_CA value to a file in that repository.
-
-`cluster_branch` – The branch within the cluster_repo that you want to update
-    
-`cluster_name` - new cluster that will be created
-
-`dex_repo` - the git url for the repository needing the dex info for child
-clusters.
-
-`dex_branch` - the branch within the dex_repo that should be updated.
-
-`lb_cert` - the AWS arn for the certificate
+There are a list of variables that need to be updated.
+Each parameter in ./script.sh must have a corresponding argument in the correct
+order, from the dexbootstrapper.yaml file.
 
 -   Update the sshconfig to include any hosts where you'll pull from git. This
     disables host checking.
